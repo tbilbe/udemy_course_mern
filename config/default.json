@@ -1,0 +1,4 @@
+{
+	"mongoURI": "mongodb+srv://tbilbe:l0veyafuckya@rentia-cluster1-zf8wy.mongodb.net/test?retryWrites=true&w=majority",
+	"jwt-token": "SecretTokenTbilbeApplication"
+}
