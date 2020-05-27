@@ -1,6 +1,15 @@
 /* Global Styles */
 :root {
-	--primary-color: #17a2b8;
+	--primary-color: #963786;
+	--primary-color-light: #a83a96;
+	--color-primary-dark: #862271;
+
+	--color-secondary-light: #f76262;
+	--color-secondary-dark: #973636;
+
+	--color-tertiary-light: #387a96;
+	--color-tertiary-dark: #216583;
+
 	--dark-color: #343a40;
 	--light-color: #f4f4f4;
 	--danger-color: #dc3545;
@@ -128,10 +137,14 @@ img {
 
 .btn {
 	display: inline-block;
+	text-decoration: none;
+	letter-spacing: 0.3rem;
 	background: var(--light-color);
 	color: #333;
-	padding: 0.4rem 1.3rem;
-	font-size: 1rem;
+	padding: 1.1rem 2rem;
+	margin: 1rem;
+	border-radius: 2.8rem;
+	font-size: 1.5rem;
 	border: none;
 	cursor: pointer;
 	margin-right: 0.5rem;
