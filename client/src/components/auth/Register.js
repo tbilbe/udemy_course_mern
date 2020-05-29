@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from "react-redux";
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types'
 
-export const Register = () => {
+export const Register = ({ setAlert, register }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -18,9 +21,10 @@ export const Register = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== passwordConfirm) {
-			console.log('Passwords do not match');
+			// no props.setAlert from destructuring params
+			setAlert('Passwords do not match', 'danger');
 		} else {
-			console.log('Success');
+			register({ name, email, password });
 		}
 	};
 	return (
@@ -37,7 +41,7 @@ export const Register = () => {
 						name="name"
 						value={name}
 						onChange={(e) => onChange(e)}
-						required
+						
 					/>
 				</div>
 				<div className="form-group">
@@ -47,7 +51,7 @@ export const Register = () => {
 						name="email"
 						value={email}
 						onChange={(e) => onChange(e)}
-						required
+						
 					/>
 					<small className="form-text">
 						This site uses Gravatar so if you want a profile image, use a
@@ -61,8 +65,7 @@ export const Register = () => {
 						name="password"
 						value={password}
 						onChange={(e) => onChange(e)}
-						minLength="12"
-						required
+						
 					/>
 				</div>
 				<div className="form-group">
@@ -72,8 +75,7 @@ export const Register = () => {
 						name="passwordConfirm"
 						value={passwordConfirm}
 						onChange={(e) => onChange(e)}
-						minLength="12"
-						required
+					
 					/>
 				</div>
 				<input type="submit" className="btn btn-primary" value="Register" />
@@ -86,4 +88,9 @@ export const Register = () => {
 	);
 };
 
-export default Register;
+Register.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired,
+}
+
+export default connect(null, { setAlert, register })(Register);
