@@ -7,6 +7,7 @@ const { check, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/User');
+// const uuid = require('uuid/v4');
 
 /*
   @route   POST api/users
@@ -33,8 +34,18 @@ router.post(
 		const { name, email, password } = req.body;
 
 		try {
-			//  see if user exists (using destructuring!)
+			// see if user exists (using destructuring!)
 			let user = await User.findOne({ email });
+			
+			// customer id for strip payments down the line!
+			// const customerId = uuid();
+
+			/* TODO:
+			Create a subscription model
+			possibly three tiers free - just email one a week
+			lvl1 -> £20 / month
+			lvl2 -> £50 / month
+			*/
 
 			if (user) {
 				return res
@@ -53,7 +64,8 @@ router.post(
 				name,
 				email,
 				avatar,
-				password
+				password,
+				// customerId
 			});
 
 			//encrypt password
