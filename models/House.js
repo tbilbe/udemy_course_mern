@@ -13,6 +13,9 @@ const HouseSchema = new mongoose.Schema({
 		type: String,
 		require: true
 	},
+	fullDescription: {
+		type: String
+	},
 	image: {
 		type: String,
 		require: true
@@ -26,12 +29,8 @@ const HouseSchema = new mongoose.Schema({
 		require: true
 	},
 	searchTerm: {
-		type: String,
-		require: true
-	},
-	maxCapitalValue: {
-		type: Number,
-		required: false
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'search'
 	}
 });
 
