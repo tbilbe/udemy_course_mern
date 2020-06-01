@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
+import CreateProfile from './components/profile-form/CreateProfile';
 
 
 // Redux
@@ -17,12 +18,13 @@ import { loadUser } from './actions/auth';
 import './App.css';
 
 // run the auth token check first time app loads
-if(localStorage.token) { setAuthToken(localStorage.token); }
+// if(localStorage.token) { ; }
 
 const App = () => { 
 	
 	// gotcha unless add the 2nd param of the array
 	useEffect(() => {
+		setAuthToken(localStorage.token);
 		store.dispatch(loadUser());
 	}, []);
 	
@@ -38,6 +40,7 @@ const App = () => {
 					<Route exact path="/register" component={Register} />
 					<Route exact path="/login" component={Login} />
 					<PrivateRoute exact path="/dashboard" component={Dashboard} />
+					<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 				</Switch>
 			</section>
 		</Fragment>
