@@ -1,8 +1,10 @@
-import React, { useState, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = props => {
+const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -17,7 +19,7 @@ const CreateProfile = props => {
     instagram: ''
   });
 
-  const [displaySocialInputs, toggleSocialInputs] = useState(false)
+  const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   const {
     company,
@@ -33,18 +35,23 @@ const CreateProfile = props => {
     instagram
   } = formData;
 
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value })
+  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    createProfile(formData, history);
+  }
 
   return (
     <Fragment>
-      <h1 className="large text-primary">
+      `<h1 className="large text-primary">
         Create Your Profile
-      </h1>
+        </h1>
       <p className="lead">
         <i className="fas fa-user"></i> Let's get some basic information for your profile
-      </p>
+        </p>
       <small>* = required field</small>
-      <form className="form">
+      <form className="form" onSubmit={e => onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={e => onChange(e)}>
             <option value="0">* Select Status</option>
@@ -56,32 +63,28 @@ const CreateProfile = props => {
           </select>
           <small className="form-text">
             Give us an idea of what you are interested in
-          </small>
+            </small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Company" name="company" value={company} onChange={e => onChange(e)} />
-          <small className="form-text"
-          >Could be your own company or one you work for</small
-          >
+          <small className="form-text">
+            Could be your own company or one you work for</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Website" name="website" onChange={e => onChange(e)} value={website} />
           <small className="form-text"
-          >Could be your own or a company website</small
-          >
+          >Could be your own or a company website</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="Location" name="location" onChange={e => onChange(e)} value={location} />
           <small className="form-text"
-          >City & County suggested (eg. Manchester, Lancs)</small
-          >
+          >City & County suggested (eg. Manchester, Lancs)</small>
         </div>
         <div className="form-group">
           <input type="text" placeholder="* Skills" name="skills" onChange={e => onChange(e)} value={skills} />
           <small className="form-text"
           >Please use comma separated values (eg.
-            Buy-to-let,Lease-option-agreements,Rent-rent)</small
-          >
+              Buy-to-let,Lease-option-agreements,Rent-rent)</small>
         </div>
         <div className="form-group">
           <textarea placeholder="A short bio of yourself" name="bio" onChange={e => onChange(e)} value={bio}></textarea>
@@ -91,12 +94,12 @@ const CreateProfile = props => {
         <div className="my-2">
           <button onClick={() => toggleSocialInputs(!displaySocialInputs)} type="button" className="btn-med btn-light">
             Add Social Network Links
-          </button>
+            </button>
           <span>Optional</span>
         </div>
 
         {
-          displaySocialInputs && <Fragment>
+          displaySocialInputs && (<Fragment>
             <div className="form-group social-input">
               <i className="fab fa-twitter fa-2x"></i>
               <input type="text" placeholder="Twitter URL" name="twitter" onChange={e => onChange(e)} value={twitter} />
@@ -122,17 +125,25 @@ const CreateProfile = props => {
               <input type="text" placeholder="Instagram URL" name="instagram" onChange={e => onChange(e)} value={instagram} />
             </div>
           </Fragment>
-        }
+          )}
         <input type="submit" className="btn-med btn-primary my-1" />
-        <a className="btn-med btn-light my-1" to="/dashboard">Go Back</a>
+        <Link className="btn-med btn-light my-1" to="/dashboard">
+          Go Back
+          </Link>
       </form>
-
     </Fragment>
-  )
-}
+  );
+};
 
 CreateProfile.propTypes = {
-
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 }
 
-export default CreateProfile;
+const mapStateToProps = state => ({
+  profile: state.profile
+})
+
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(withRouter(CreateProfile));

@@ -1,6 +1,6 @@
-import React, { useEffect, Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React, { useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Spinner from '../layout/spinner';
 import { getCurrentProfile } from '../../actions/profile';
 import { Link, Redirect } from 'react-router-dom';
@@ -9,12 +9,14 @@ import { Link, Redirect } from 'react-router-dom';
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading } }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
-  return loading && profile === null ? <Spinner /> : <Fragment><h1 className="large text-primary">Dashboard</h1>
-    <p className="lead">
-      <i className="fas fa-user"></i>
-{' '}Welcome {user && user.name.split(' ')[0]}
-    </p>
+  }, [getCurrentProfile]);
+  return loading && profile === null ? ( <Spinner /> ) : (
+    <Fragment>
+      <h1 className="large text-primary">Dashboard</h1>
+      <p className="lead">
+        <i className="fas fa-user"></i>
+        {' '}Welcome {user && user.name.split(' ')[0]}
+      </p>
 
     {/* profile is set to undefined as an error comes back as no profile exists */}
 {profile !== undefined ? ( <Fragment>here</Fragment> ) : (
@@ -26,6 +28,7 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
       </Fragment>
       )}
   </Fragment>
+  )
 }
 
 Dashboard.propTypes = {

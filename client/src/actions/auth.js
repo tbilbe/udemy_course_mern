@@ -6,8 +6,8 @@ import  {
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
-  LOGIN_FAIL,
   LOGIN_SUCCESS,
+  LOGIN_FAIL,
   LOGOUT,
   CLEAR_PROFILE
 } from './types';
@@ -38,8 +38,8 @@ export const register = ({ name, email, password}) => async dispatch => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }
-  const body = JSON.stringify({name, email, password})
+  };
+  const body = JSON.stringify({name, email, password});
 
   try {
     const res = await axios.post('/api/users', body, config);
@@ -53,9 +53,9 @@ export const register = ({ name, email, password}) => async dispatch => {
     if(errors) {
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     };
-    // dispatch({
-    //   type: REGISTER_FAIL
-    // });
+    dispatch({
+      type: REGISTER_FAIL
+    });
   }
 };
 
@@ -89,7 +89,5 @@ export const login = (email, password) => async dispatch => {
 // LOGOUT clear profile
 export const logout = () => async dispatch => {
   dispatch({ type: CLEAR_PROFILE});
-  dispatch({
-    type: LOGOUT
-  });
+  dispatch({ type: LOGOUT });
 };
