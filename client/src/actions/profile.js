@@ -3,7 +3,8 @@ import { setAlert } from './alert';
 
 import {
   GET_PROFILE,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  UPDATE_PROFILE
 } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
@@ -25,18 +26,18 @@ export const getCurrentProfile = () => async dispatch => {
 // to create or update profile
 export const createProfile = (formData, history, edit = false) => async dispatch => {
   try {
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-    const res = axios.post('/api/profile', formData)
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    const res = await axios.post('/api/profile', formData, config)
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     })
 
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created'));
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success', 8000));
 
     if (!edit) {
       history.push('/dashboard');
@@ -49,9 +50,71 @@ export const createProfile = (formData, history, edit = false) => async dispatch
       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
     };
 
-    // dispatch({
-    //   type: PROFILE_ERROR,
-    //   payload: { msg: err.response.statusText, status: err.response.status}
-    // })
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
   }
 }
+
+
+// Add Portfolio properties
+export const addPropertiesToPortfolio = (formData, history) => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    const res = await axios.put('/api/profile/portfolio', formData, config)
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    })
+
+    dispatch(setAlert('Portfolio property added', 'success', 8000));
+    history.push('/dashboard');
+
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if(errors) {
+      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+    };
+
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
+  }
+}
+
+// TODO - NEED TO ADD THE EXPERIENCE MODEL AND ENDPOINTS ON THE BACKEND
+// Add Experience
+// export const addExperience = (formData, history) = async dispatch => {
+//   try {
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     }
+//     const res = await axios.put('/api/profile/experience', formData, config)
+//     dispatch({
+//       type: UPDATE_PROFILE,
+//       payload: res.data
+//     })
+
+//     dispatch(setAlert('Property experience added', 'success', 8000));
+//     history.push('/dashboard');
+
+//   } catch (err) {
+//     const errors = err.response.data.errors;
+//     if(errors) {
+//       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+//     };
+
+//     dispatch({
+//       type: PROFILE_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status}
+//     })
+//   }
+// };

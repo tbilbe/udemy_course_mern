@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
+const EditProfile = ({ profile: { profile, loading}, createProfile, getCurrentProfile, history }) => {
   const [formData, setFormData] = useState({
     company: '',
     website: '',
@@ -20,6 +20,23 @@ const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
   });
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+  useEffect(() => {
+    getCurrentProfile();
+    setFormData({
+      company: loading || !profile.company ? '' : profile.company,
+      website: loading || !profile.website ? '' : profile.website,
+      location: loading || !profile.location ? '' : profile.location,
+      status: loading || !profile.status ? '' : profile.status,
+      skills: loading || !profile.skills ? '' : profile.skills.join(','),
+      bio: loading || !profile.bio ? '' : profile.bio,
+      twitter: loading || !profile.social ? '' : profile.social.twitter,
+      facebook: loading || !profile.social ? '' : profile.social.facebook,
+      linkedin: loading || !profile.social ? '' : profile.social.linkedin,
+      youtube: loading || !profile.social ? '' : profile.social.youtube,
+      instagram: loading || !profile.social ? '' : profile.social.instagram
+    });
+  }, [loading]);
 
   const {
     company,
@@ -39,7 +56,7 @@ const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    createProfile(formData, history);
+    createProfile(formData, history, true);
   }
 
   return (
@@ -135,7 +152,7 @@ const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
   getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
@@ -145,5 +162,5 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-  withRouter(CreateProfile)
+  withRouter(EditProfile)
 );

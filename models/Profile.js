@@ -40,7 +40,7 @@ const ProfileSchema = new mongoose.Schema({
 		}
 	],
 	portfolio: [
-		// has its own put route 'api/profile/experience'
+		// has its own put route 'api/profile/portfolio'
 		{
 			title: {
 				type: String,
@@ -52,7 +52,7 @@ const ProfileSchema = new mongoose.Schema({
 				required: true
 			},
 			size: {
-				type: Number,
+				type: String,
 				required: true
 			},
 			status: {

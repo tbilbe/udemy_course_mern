@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/spinner';
 import { getCurrentProfile } from '../../actions/profile';
 import { Link, Redirect } from 'react-router-dom';
+import DashboardActions from './DashboardActions';
 
 
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading } }) => {
@@ -19,7 +20,9 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
       </p>
 
     {/* profile is set to undefined as an error comes back as no profile exists */}
-{profile !== undefined ? ( <Fragment>here</Fragment> ) : (
+{profile !== null ? ( <Fragment>
+  <DashboardActions />
+  </Fragment> ) : (
       <Fragment>
         <p>You don't have a profile, please add some information to your profile</p>
         <Link to='/create-profile' className='btn-med btn-primary my-1'>
@@ -38,7 +41,7 @@ Dashboard.propTypes = {
 }
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.auth
+  profile: state.profile
 })
 
 export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
