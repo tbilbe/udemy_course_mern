@@ -15,3 +15,8 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const CLEAR_PROFILE = 'CLEAR_PROFILE';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE'; // updating profile with portfolio data
 
+
+export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
+
+export const PROPERTY_SEARCH = 'PROPERTY_SEARCH';
+export const PROPERTY_SEARCH_FAIL = 'PROPERTY_SEARCH_FAIL';

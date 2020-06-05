@@ -4,7 +4,25 @@ import { connect } from 'react-redux';
 import Spinner from '../layout/spinner';
 import { getCurrentProfile } from '../../actions/profile';
 import { Link, Redirect } from 'react-router-dom';
+import Experience from './Experience';
 import DashboardActions from './DashboardActions';
+
+const dummyExperience = [
+  {
+    id: 1,
+    title: 'Best in the world',
+    to: new Date(),
+    from: new Date() - 10000,
+    company: 'Big Bad Company'
+  },
+  {
+    id: 2,
+    title: 'smallest in the world',
+    to: new Date() - 10000,
+    from: new Date() - 20000,
+    company: 'small good Company'
+  }
+]
 
 
 const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, loading } }) => {
@@ -22,6 +40,8 @@ const Dashboard = ({ getCurrentProfile, auth: { user }, profile: { profile, load
     {/* profile is set to undefined as an error comes back as no profile exists */}
 {profile !== null ? ( <Fragment>
   <DashboardActions />
+  <Experience experience={dummyExperience} /> 
+  {/* experience is the proptype array -> so i want proptype of fave searches saved down as an array and pass that in to make links to searches of new areas for example */}
   </Fragment> ) : (
       <Fragment>
         <p>You don't have a profile, please add some information to your profile</p>

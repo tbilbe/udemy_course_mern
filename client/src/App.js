@@ -11,6 +11,7 @@ import setAuthToken from './utils/setAuthToken';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddPortfolio from './components/profile-form/AddPortfolio';
+import CreateSearch from './components/properties-form/CreateSearch';
 
 
 // Redux
@@ -45,6 +46,7 @@ const App = () => {
 					<PrivateRoute exact path="/create-profile" component={CreateProfile} />
 					<PrivateRoute exact path="/edit-profile" component={EditProfile} />
 					<PrivateRoute exact path="/add-portfolio" component={AddPortfolio} />
+					<PrivateRoute exact path="/search" component={CreateSearch} />
 				</Switch>
 			</section>
 		</Fragment>

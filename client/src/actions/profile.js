@@ -4,7 +4,9 @@ import { setAlert } from './alert';
 import {
   GET_PROFILE,
   PROFILE_ERROR,
-  UPDATE_PROFILE
+  UPDATE_PROFILE,
+  CLEAR_PROFILE,
+  ACCOUNT_DELETED
 } from './types';
 
 export const getCurrentProfile = () => async dispatch => {
@@ -86,6 +88,31 @@ export const addPropertiesToPortfolio = (formData, history) => async dispatch =>
       payload: { msg: err.response.statusText, status: err.response.status}
     })
   }
+};
+
+// delete the portfolio
+export const deletePropertiesFromPortfolio = (id) => async dispatch => {
+  
+  dispatch({
+    type: UPDATE_PROFILE,
+    payload: id
+  })
+  setAlert(`hello! ${id}`,'success')
+  
+  // try {
+  //   const res = await axios.delete(`/api/profile/portfolio/${id}`);
+
+  //   dispatch({
+  //     type: UPDATE_PROFILE,
+  //     payload: res.data
+  //   })
+  //   dispatch(setAlert('Portfolio property removed', 'success', 8000));
+  // } catch (err) {
+  //   dispatch({
+  //     type: PROFILE_ERROR,
+  //     payload: { msg: err.response.statusText, status: err.response.status}
+  //   })
+  // }
 }
 
 // TODO - NEED TO ADD THE EXPERIENCE MODEL AND ENDPOINTS ON THE BACKEND
@@ -118,3 +145,32 @@ export const addPropertiesToPortfolio = (formData, history) => async dispatch =>
 //     })
 //   }
 // };
+
+
+
+
+
+
+
+/*
+ Delete the Profile and Account
+*/
+export const deleteAccountAndProfile = () => async dispatch => {
+  
+  if(window.confirm('Are you sure? this cannot be undone!')) {
+    try {
+      const res = await axios.delete(`/api/profile/`);
+  
+      dispatch({type: CLEAR_PROFILE})
+      dispatch({type: ACCOUNT_DELETED})
+      dispatch(setAlert('Your account has been permenantly deleted', 'danger', 8000));
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status}
+      })
+    }
+  }
+  
+  
+}

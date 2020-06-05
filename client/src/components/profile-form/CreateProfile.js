@@ -56,9 +56,9 @@ const CreateProfile = ({ createProfile, getCurrentProfile, history }) => {
           <select name="status" value={status} onChange={e => onChange(e)}>
             <option value="0">* Select Status</option>
             <option value="Developer">Developer</option>
-            <option value="Land-lord">Land-lord</option>
+            <option value="Land-lord">Private landlord</option>
             <option value="Investor">Investor</option>
-            <option value="Deal Sourcer">Deal Sourcer</option>
+            <option value="Deal Sourcer">Deal sourcer</option>
             <option value="Other">Other</option>
           </select>
           <small className="form-text">

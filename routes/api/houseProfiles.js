@@ -9,7 +9,7 @@ const scrapers = require('../../scraper/scrapers');
 // this route should implement the scraper
 
 /*
-  @route   GET api/houses
+  @route   POST api/houses/search/customsearch
   @desc    Test route
   @access  Private
 */
