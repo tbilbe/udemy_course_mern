@@ -97,7 +97,7 @@ export const deletePropertiesFromPortfolio = (id) => async dispatch => {
     type: UPDATE_PROFILE,
     payload: id
   })
-  setAlert(`hello! ${id}`,'success')
+  dispatch(setAlert(`hello! ${id}`,'success'));
   
   // try {
   //   const res = await axios.delete(`/api/profile/portfolio/${id}`);
@@ -114,6 +114,18 @@ export const deletePropertiesFromPortfolio = (id) => async dispatch => {
   //   })
   // }
 }
+
+// delete the favorite house from Portfolio
+// export const deletePropertiesFromFavorites = () => async dispatch => {
+//   try {
+//     const res = await axios.delete(`api/profile/`)
+//   } catch (err) {
+//     dispatch({
+//       type: PROFILE_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status}
+//     })
+//   }
+// }
 
 // TODO - NEED TO ADD THE EXPERIENCE MODEL AND ENDPOINTS ON THE BACKEND
 // Add Experience

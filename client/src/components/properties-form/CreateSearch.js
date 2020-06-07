@@ -38,13 +38,13 @@ const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
           <div className="form-group">
             <input
               type="text"
-              placeholder="Enter the first of a UK postcode"
+              placeholder="Enter a UK postcode: for example LS6 or HU5"
               name="searchTerm"
               value={searchTerm}
               onChange={e => onChange(e)}
             />
             <small className="form-text">
-              Could be your own company or one you work for</small>
+              To start a search we only need the first half of a UK postcode</small>
           </div>
           <div className="form-group">
             <input
@@ -55,7 +55,7 @@ const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
               onChange={e => onChange(e)}
             />
             <small className="form-text"
-            >Could be your own or a company website</small>
+            >If you have £20'000 to invest just use this value - we'll do the rest</small>
           </div>
           <input type="submit" className="btn-med btn-primary my-1" />
           <Link className="btn-med btn-light my-1" to="/dashboard">

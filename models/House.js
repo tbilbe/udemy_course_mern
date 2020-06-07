@@ -31,6 +31,10 @@ const HouseSchema = new mongoose.Schema({
 	searchTerm: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'search'
+	},
+	investmentReturn: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'propertyYield'
 	}
 });
 

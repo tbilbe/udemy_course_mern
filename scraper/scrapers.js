@@ -16,7 +16,8 @@ async function scrapeHouses(searchTerm, maxPrice) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.setUserAgent(USER_AGENT);
-    const maxprice = maxPrice ? maxPrice : '';
+    const maxprice = maxPrice ? maxPrice * 4 : '';
+    console.log(maxprice, 'maxPrice')
     // const minprice = minPrice ? minPrice : ''
 
 
@@ -48,9 +49,7 @@ async function scrapeHouses(searchTerm, maxPrice) {
     console.log(`[#] Done getting links\n possible links: ${zooplaSearchResultsLinks.length} minus 5 = ${(zooplaSearchResultsLinks.length) - 5}`);
 
     // todo go to links and scrape page data
-
-    // for (let i = 5; i < zooplaSearchResultsLinks.length; i++) {
-        for (let i = 5; i < 10; i++) {
+        for (let i = 2; i < 10; i++) {
 
         let houseLink = zooplaSearchResultsLinks[i];
         console.log(`\n[#${i}] Trying: ${houseLink}`);
@@ -155,12 +154,13 @@ async function scrapeHouses(searchTerm, maxPrice) {
     await page.close();
     await browser.close();
     console.log("------ DONE ------");
-    console.log(scrapedResponses)
+    // console.log(scrapedResponses)
     return scrapedResponses;
 }
 
 // scrapeHouses('m4', '150000');
 // scrapeHouses('m4');
+
 
 module.exports = {
     scrapeHouses
