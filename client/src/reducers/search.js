@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
     case PROPERTY_ADD_FAVOURITE_FAIL:
       return {
         ...state,
-        properties: [],
+        properties: null,
         loading: false
       }
     default:

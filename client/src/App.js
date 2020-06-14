@@ -11,8 +11,8 @@ import setAuthToken from './utils/setAuthToken';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddPortfolio from './components/profile-form/AddPortfolio';
-import CreateSearch from './components/properties-form/CreateSearch';
 import SavedHouses from './components/favourites/SavedHouses';
+import CreateSearch from './components/properties-form/CreateSearch';
 
 
 // Redux

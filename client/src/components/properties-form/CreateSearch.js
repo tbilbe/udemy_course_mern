@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
@@ -12,6 +12,17 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
     searchTerm: '',
     maxprice: '',
   });
+
+
+  // use state for the api call
+  const [houseDeals, setHouses] = useState([]);
+
+  useEffect(() => {
+    // fetch stuff
+    searchForPropertyDeals();
+    // setthe state
+    setHouses(houses)
+  }, [searchForPropertyDeals, setHouses]);
 
   const { 
     searchTerm,
@@ -67,11 +78,15 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
       <br/>
       <hr/>
       <br/>
+      {!houseDeals && houseDeals.map((deal, i) => (
+        <p key={i}>{deal}</p>
+      ))}
+      
       {/* conditional render of if we have houses! */}
-      {
+      {/* {
         houses &&
         <FoundHouseCard children={houses}/>
-      }
+      } */}
 
     </Fragment>
   )

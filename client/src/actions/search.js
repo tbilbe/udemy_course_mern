@@ -5,7 +5,7 @@ import {
   PROPERTY_SEARCH,
   PROPERTY_SEARCH_FAIL,
   PROPERTY_ADD_FAVOURITE,
-  PROPERTY_ADD_FAVOURITE_FAIL
+  PROPERTY_ADD_FAVOURITE_FAIL,
 } from './types';
 
 
@@ -17,14 +17,15 @@ export const searchForPropertyDeals = formData => async dispatch => {
         'Content-Type': 'application/json'
       }
     }
-    const res = await axios.post('api/houses/search/customsearch', formData, config)
+    dispatch(setAlert('Property Search Started', 'success', 6500));
+
+    const res = await axios.post('api/houses/search/customsearch', formData, config);
     dispatch({
       type: PROPERTY_SEARCH,
       payload: res.data
     })
-
-    dispatch(setAlert('Property Search Started', 'success'));
-    // history.push('/dashboard');
+    // dispatch(setAlert('Property Search Completed', 'success'));
+    // history.push('/dashboard');, 
 
   } catch (err) {
     // const errors = err.response.data.errors;

@@ -42,8 +42,6 @@ router.get('/search/trendingsearches', async (req, res) => {
 
 });
 
-
-
 // this route should implement the scraper
 /*
   @route   POST api/houses/search/customsearch
