@@ -48,8 +48,6 @@ const Dashboard = ({ getCurrentProfile, getTrendingSearchHistory, auth: { user }
     getCurrentProfile();
     getTrendingSearchHistory();
   }, [getCurrentProfile, getTrendingSearchHistory]);
-  
-  
   return loading && profile === null ? (<Spinner />) : (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
