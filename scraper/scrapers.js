@@ -55,7 +55,7 @@ async function scrapeHouses(searchTerm, maxPrice) {
         console.log(`\n[#${i}] Trying: ${houseLink}`);
         await page.goto(houseLink, { waitUntil: 'networkidle2' })
 
-
+        const bedSelector = `#property-details-tab > div:nth-child(2) > ul > li:nth-child(1) > span`
         const priceSelector = `#dp-sticky-element > article > div > p`;
         const addressSummarySelector = `#dp-sticky-element > article > h2`;
         const houseSummary = `#dp-sticky-element > article > h1`;
@@ -66,6 +66,15 @@ async function scrapeHouses(searchTerm, maxPrice) {
         const imageUrlSelector = `#main-content > div.ui-layout > div.dp-grid-wrapper > div.dp-gallery-wrapper > div > div > ul > li:nth-child(2) > a > img`;
         const imageUrlSelector2 = `#main-content > div.ui-layout > div.dp-grid-wrapper > div.dp-gallery-wrapper > div > div > ul > li:nth-child(3) > a > img`;
         const imageUrlSelector3 = `#main-content > div.ui-layout > div.dp-grid-wrapper > div.dp-gallery-wrapper > div > div > ul > li:nth-child(4) > a > img`;
+
+        const beds = await page.evaluate((selector) => {
+            const beds_dom = document.querySelector(selector);
+            if (beds_dom) {
+                return beds_dom.textContent.trim();
+            } else {
+                return 'No content'
+            }
+        }, bedSelector);
 
         const price = await page.evaluate((selector) => {
             const price_dom = document.querySelector(selector);
@@ -139,6 +148,7 @@ async function scrapeHouses(searchTerm, maxPrice) {
         }, imageUrlSelector, imageUrlSelector2, imageUrlSelector3);
 
         const listingResponse = {
+            beds,
             houseLink,
             houseSum,
             price,

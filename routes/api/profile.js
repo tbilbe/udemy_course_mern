@@ -213,6 +213,41 @@ router.put(
 	}
 );
 
+/*
+  @route   PUT api/profile/favourites/property
+  @desc    Add to the fovourite properties
+  @access  Private
+*/
+router.put('/favourites/property', [
+	auth
+],
+async (req, res) => {
+	const {likedHouse} = req.body;
+	const dateOfLike = new Date();
+	const newFavourites = {likedHouse, dateOfLike}
+	try {
+		const profile = await Profile.findOne({ user: req.user.user.id });
+		if (profile) {
+			if (
+				!profile.favouriteProperties ||
+				profile.favouriteProperties.length === 0
+			) {
+				profile.favouriteProperties = [];
+				profile.favouriteProperties.push(newFavourite);
+			} else {
+				profile.favouriteProperties.unshift(newFavourite);
+			}
+			await profile.save();
+		} else {
+			res.status(400).send('Error Saving: Favourite property -> Resend');
+		}
+		
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('server error');
+	}
+})
+
 //TODO maybe !
 /*
   @route   DELETE api/profile/searchhistory

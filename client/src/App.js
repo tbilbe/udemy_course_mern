@@ -12,6 +12,7 @@ import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddPortfolio from './components/profile-form/AddPortfolio';
 import CreateSearch from './components/properties-form/CreateSearch';
+import SavedHouses from './components/favourites/SavedHouses';
 
 
 // Redux
@@ -47,6 +48,7 @@ const App = () => {
 					<PrivateRoute exact path="/edit-profile" component={EditProfile} />
 					<PrivateRoute exact path="/add-portfolio" component={AddPortfolio} />
 					<PrivateRoute exact path="/search" component={CreateSearch} />
+					<PrivateRoute exact path="/saved-favourites" component={SavedHouses} />
 				</Switch>
 			</section>
 		</Fragment>

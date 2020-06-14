@@ -9,23 +9,6 @@ import Experience from './Experience';
 import Trending from './Tranding';
 import DashboardActions from './DashboardActions';
 
-const dummyExperience = [
-  {
-    id: 1,
-    title: 'Best in the world',
-    to: new Date(),
-    from: new Date() - 10000,
-    company: 'Big Bad Company'
-  },
-  {
-    id: 2,
-    title: 'smallest in the world',
-    to: new Date() - 10000,
-    from: new Date() - 20000,
-    company: 'small good Company'
-  }
-]
-
 const dummyTrends = [
   {
     searchTerm: "hu5",
@@ -60,11 +43,14 @@ const dummyTrends = [
 
 
 const Dashboard = ({ getCurrentProfile, getTrendingSearchHistory, auth: { user }, profile: { profile, loading } }) => {
+
   useEffect(() => {
     getCurrentProfile();
     getTrendingSearchHistory();
   }, [getCurrentProfile, getTrendingSearchHistory]);
-  return loading && profile === null ? ( <Spinner /> ) : (
+  
+  
+  return loading && profile === null ? (<Spinner />) : (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
@@ -72,21 +58,20 @@ const Dashboard = ({ getCurrentProfile, getTrendingSearchHistory, auth: { user }
         {' '}Welcome {user && user.name.split(' ')[0]}
       </p>
 
-    {/* profile is set to undefined as an error comes back as no profile exists */}
-{profile !== null ? ( <Fragment>
-  <DashboardActions />
-  <Trending trendingSearches={dummyTrends}/>
-  <Experience experience={profile.portfolio} /> 
-  {/* experience is the proptype array -> so i want proptype of fave searches saved down as an array and pass that in to make links to searches of new areas for example */}
-  </Fragment> ) : (
-      <Fragment>
-        <p>You don't have a profile, please add some information to your profile</p>
-        <Link to='/create-profile' className='btn-med btn-primary my-1'>
-          Create Profile
+      {profile !== null ? (<Fragment>
+        <DashboardActions />
+        <Trending trendingSearches={dummyTrends} />
+        <Experience experience={profile.portfolio} />
+        {/* experience is the proptype array -> so i want proptype of fave searches saved down as an array and pass that in to make links to searches of new areas for example */}
+      </Fragment>) : (
+          <Fragment>
+            <p>You don't have a profile, please add some information to your profile</p>
+            <Link to='/create-profile' className='btn-med btn-primary my-1'>
+              Create Profile
         </Link>
-      </Fragment>
-      )}
-  </Fragment>
+          </Fragment>
+        )}
+    </Fragment>
   )
 }
 

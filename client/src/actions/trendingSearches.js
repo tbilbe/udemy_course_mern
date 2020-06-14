@@ -14,7 +14,7 @@ export const getTrendingSearchHistory = () => async dispatch => {
         'Content-Type': 'application/json'
       }
     }
-    const res = await axios.post('api/houses/search/trendingSearches', config)
+    const res = await axios.get('api/houses/search/trendingsearches', config)
     dispatch({
       type: TRENDING_SEARCH,
       payload: res.data

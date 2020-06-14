@@ -2,11 +2,11 @@ import React, { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
-import { addPropertiesToPortfolio } from '../../actions/search';
+import { searchForPropertyDeals } from '../../actions/search';
+import FoundHouseCard from './FoundHouseCard';
 
 
-
-const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
+const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
 
   const [formData, setFormData] = useState({
     searchTerm: '',
@@ -20,7 +20,7 @@ const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
  
   const onSubmit = e => {
     e.preventDefault();
-    addPropertiesToPortfolio(formData, history);
+    searchForPropertyDeals(formData, history);
   };
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +32,8 @@ const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
       <h4>Add spinner</h4>
       <h4>Add component did mount and add house cards.</h4>
       <h4>Create house cards!</h4>
-      <Fragment className="container container-border">
+
+      <div className="container container-border">
         <h1 className="m-1 large container container-border text-center">Create Property Search Form</h1>
         <form className="form" onSubmit={e => onSubmit(e)}>
           <div className="form-group">
@@ -62,14 +63,27 @@ const CreateSearch = ({ addPropertiesToPortfolio, history }) => {
             Go Back
           </Link>
         </form>
-      </Fragment>
+      </div>
+      <br/>
+      <hr/>
+      <br/>
+      {/* conditional render of if we have houses! */}
+      {
+        houses &&
+        <FoundHouseCard children={houses}/>
+      }
+
     </Fragment>
   )
 }
 
 CreateSearch.propTypes = {
-  addPropertiesToPortfolio: PropTypes.func.isRequired,
+  searchForPropertyDeals: PropTypes.func.isRequired,
 
 }
+const mapStateToProps = state => ({
+  houses: state.search.properties,
+  profile: state.profile
+})
 
-export default connect(null, {addPropertiesToPortfolio})(withRouter(CreateSearch));
+export default connect(mapStateToProps, {searchForPropertyDeals})(withRouter(CreateSearch));

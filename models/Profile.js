@@ -27,7 +27,23 @@ const ProfileSchema = new mongoose.Schema({
 	bio: {
 		type: String
 	},
+	favouriteProperties: [
+		// has its own put route to add to this array
+		{
+			likedHouse: {
+				likedHouse: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: 'house'
+				},
+				dateOfLike: {
+					type: Date,
+					default: Date.now
+				}
+			}
+		}
+	],
 	propertySearchHistory: [
+		// has its own put route
 		{
 			searchLocation: {
 				type: String,

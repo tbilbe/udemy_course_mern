@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const HouseSchema = new mongoose.Schema({
+	numberOfBeds: {
+		type: String,
+		required: true
+	},
 	listingSummary: {
 		type: String,
 		required: true
@@ -27,6 +31,10 @@ const HouseSchema = new mongoose.Schema({
 	rentalAverageInArea: {
 		type: String,
 		require: true
+	},
+	houseUrl: {
+		type: String,
+		required: true
 	},
 	searchTerm: {
 		type: mongoose.Schema.Types.ObjectId,
