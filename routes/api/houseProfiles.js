@@ -18,11 +18,12 @@ router.get('/search/trendingsearches', async (req, res) => {
   // trending one day
   let ONE_DAY = 24 * 60 * 60 * 1000; // ms
   const oneDayOldSearch = new Date(Date.now() - ONE_DAY); //  
-
+  
   const searches = await Search.find({});
+ 
   if (searches) {
-    const youngSearches = searches.filter(search => { return new Date(`${search.date}`) > oneDayOldSearch });
-    const rankedSearches = [...youngSearches.reduce((acc, next) => {
+    const newestSearches = searches.filter(search => new Date(`${search.date}`) > oneDayOldSearch);
+    const rankedSearches = [...newestSearches.reduce((acc, next) => {
       if (!acc.has(next.searchTerm)) acc.set(next.searchTerm, { ...next, count: 0 });
       acc.get(next.searchTerm).count++;
       return acc;
@@ -71,8 +72,9 @@ router.post('/search/customsearch', [
     //   console.log('previousSearches', previousSearches)
     //   return res.status(301).json({previousSearches})
     // } else {
-    propertySearch = new Search({ searchTerm: searchTerm, maxprice: maxprice });
+    const propertySearch = new Search({ searchTerm: searchTerm, maxprice: maxprice });
     await propertySearch.save();
+    console.log('got here')
 
     const scrapeRes = await scrapers.scrapeHouses(searchTerm, maxprice);
 
@@ -180,7 +182,7 @@ router.post('/search/customsearch', [
     return res.status(200).json({ scrapeRes });
     // }
   } catch (err) {
-    console.log(`hit the error block in the try catch`);
+    console.log(`hit the error block in the try catch why`);
     console.error(err.message);
     res.status(500).send('server error!');
   }

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom';
 import { searchForPropertyDeals } from '../../actions/search';
-import FoundHouseCard from './FoundHouseCard';
 
 
 const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
@@ -19,10 +18,11 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
 
   useEffect(() => {
     // fetch stuff
+    // searchForPropertyDeals();
     searchForPropertyDeals();
-    // setthe state
-    setHouses(houses)
-  }, [searchForPropertyDeals, setHouses]);
+    // set the state
+    setHouses({...houses})
+  }, [houseDeals]);
 
   const { 
     searchTerm,
@@ -35,6 +35,10 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
   };
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  if(houses && houses.length > 0) {
+    console.log('hello', houses);
+  }
 
   return (
     <Fragment>
@@ -78,7 +82,7 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
       <br/>
       <hr/>
       <br/>
-      {!houseDeals && houseDeals.map((deal, i) => (
+      {(houseDeals && houseDeals.length > 0) && houseDeals.map((deal, i) => (
         <p key={i}>{deal}</p>
       ))}
       

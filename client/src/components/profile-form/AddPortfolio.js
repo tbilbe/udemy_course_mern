@@ -94,41 +94,6 @@ const AddPortfolio = ({ addPropertiesToPortfolio, history}) => {
             onChange={e => onChange(e)}
           />
         </div>
-        {/* <div className='form-group'>
-          <p>
-            <input
-              type='checkbox'
-              name='current'
-              checked={current}
-              value={current}
-              onChange={() => {
-                setFormData({ ...formData, current: !current });
-                toggleDisabled(!toDateDisabled);
-              }}
-            />{' '}
-            Current Job
-          </p>
-        </div> */}
-        {/* <div className='form-group'>
-          <h4>To Date</h4>
-          <input
-            type='date'
-            name='to'
-            value={to}
-            onChange={e => onChange(e)}
-            disabled={toDateDisabled ? 'disabled' : ''}
-          />
-        </div> */}
-        {/* <div className='form-group'>
-          <textarea
-            name='description'
-            cols='30'
-            rows='5'
-            placeholder='Job Description'
-            value={description}
-            onChange={e => onChange(e)}
-          />
-        </div> */}
         <input type='submit' className='btn-sml btn-primary my-1' />
         <Link className='btn-sml btn-light my-1' to='/dashboard'>
           Go Back

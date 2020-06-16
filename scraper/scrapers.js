@@ -1,4 +1,7 @@
 const puppeteer = require('puppeteer');
+const puppeteerExtra = require('puppeteer-extra');
+const pluginStealth = require('puppeteer-extra-plugin-stealth');
+
 
 async function scrapeHouses(searchTerm, maxPrice) {
 
@@ -13,7 +16,10 @@ async function scrapeHouses(searchTerm, maxPrice) {
     //         `--no-sandbox`
     //     ]
     // };
-    const browser = await puppeteer.launch();
+
+    // puppeteerExtra.use(pluginStealth());
+	// const browser = await puppeteerExtra.launch({ headless: true });
+    const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
     await page.setUserAgent(USER_AGENT);
     const maxprice = maxPrice ? maxPrice * 4 : '';
@@ -46,10 +52,21 @@ async function scrapeHouses(searchTerm, maxPrice) {
         return anchors.map(link => link.href);
     }, 'div > div.listing-results-right.clearfix > a');
 
-    console.log(`[#] Done getting links\n possible links: ${zooplaSearchResultsLinks.length} minus 5 = ${(zooplaSearchResultsLinks.length) - 5}`);
+    console.log(`[#] Done getting links [#]\n possible links: ${zooplaSearchResultsLinks.length} minus 5 = ${(zooplaSearchResultsLinks.length) - 5}`);
+    let scrapeLength;
+    if (zooplaSearchResultsLinks.length > 19) {
+        scrapeLength = 20
+    } else if (zooplaSearchResultsLinks.length >= 10 && zooplaSearchResultsLinks.length <= 19) {
+        scrapeLength = 15
+    } else if (zooplaSearchResultsLinks.length > 0 && zooplaSearchResultsLinks.length <= 9) {
+        scrapeLength = zooplaSearchResultsLinks.length
+    } else {
+        // error case here! don't scrape
+        throw new Error('NOTHING TO SEARCH FOR!');
+    }
 
     // todo go to links and scrape page data
-        for (let i = 2; i < 10; i++) {
+        for (let i = 2; i < scrapeLength; i++) {
 
         let houseLink = zooplaSearchResultsLinks[i];
         console.log(`\n[#${i}] Trying: ${houseLink}`);
@@ -168,7 +185,7 @@ async function scrapeHouses(searchTerm, maxPrice) {
     return scrapedResponses;
 }
 
-// scrapeHouses('m4', '150000');
+// scrapeHouses('m45', '35000');
 // scrapeHouses('m4');
 
 

@@ -23,6 +23,8 @@
 		"mongoose": "^5.9.15",
 		"puppeteer": "^3.2.0",
 		"puppeteer-cluster": "^0.21.0",
+		"puppeteer-extra": "^3.1.9",
+		"puppeteer-extra-plugin-stealth": "^2.4.9",
 		"request": "^2.88.2",
 		"styled-components": "^5.1.1",
 		"uuid": "^8.1.0"

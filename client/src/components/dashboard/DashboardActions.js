@@ -6,7 +6,7 @@ export const DashboardActions = () => {
       <Link to='/edit-profile' className='btn-sml btn-light'>
         <i className='fas fa-user-circle text-primary' /> Edit Profile
       </Link>
-      <Link to='/add-experience' className='btn-sml btn-light'>
+      <Link to='/add-portfolio' className='btn-sml btn-light'>
         <i className='fab fa-black-tie text-primary' /> Add Experience
       </Link>
       <Link to='/saved-favourites' className='btn-sml btn-light'>

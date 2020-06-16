@@ -5,8 +5,8 @@ import Spinner from '../layout/spinner';
 import { getCurrentProfile } from '../../actions/profile';
 import { getTrendingSearchHistory } from '../../actions/trendingSearches';
 import { Link, Redirect } from 'react-router-dom';
-import Experience from './Experience';
-import Trending from './Tranding';
+import PortfolioHouses from './PortfolioHouses';
+import Trending from './Trending';
 import DashboardActions from './DashboardActions';
 
 const dummyTrends = [
@@ -15,34 +15,36 @@ const dummyTrends = [
     maxprice: "100000",
     date: "2020-06-07T15:32:34.209Z",
     count: 10
-},{    
+  }, {
     searchTerm: "m26",
     maxprice: "50000",
     date: "2020-06-07T15:19:31.022Z",
     count: 5
-},
-{
+  },
+  {
     searchTerm: "ls6",
     maxprice: "100000",
     date: "2020-06-07T15:53:23.741Z",
     count: 2
-},
-{
+  },
+  {
     searchTerm: "hu7",
     maxprice: "100000",
     date: "2020-06-07T15:54:09.840Z",
     count: 2
-},
-{
+  },
+  {
     searchTerm: "M2",
     maxprice: "30000",
     date: "2020-06-06T20:01:48.029Z",
     count: 1
-}
+  }
 ]
 
-
-const Dashboard = ({ getCurrentProfile, getTrendingSearchHistory, auth: { user }, profile: { profile, loading } }) => {
+// todo add trendingSearches obj to the props trendingSearches: { trending}
+const Dashboard = ({
+  getCurrentProfile, getTrendingSearchHistory,
+  auth: { user }, profile: { profile, loading }  }) => {
 
   useEffect(() => {
     getCurrentProfile();
@@ -58,9 +60,12 @@ const Dashboard = ({ getCurrentProfile, getTrendingSearchHistory, auth: { user }
 
       {profile !== null ? (<Fragment>
         <DashboardActions />
-        <Trending trendingSearches={dummyTrends} />
-        <Experience experience={profile.portfolio} />
-        {/* experience is the proptype array -> so i want proptype of fave searches saved down as an array and pass that in to make links to searches of new areas for example */}
+{/* 
+        {trending && (
+          <Trending trendingSearches={trending} />
+        )} */}
+
+        <PortfolioHouses portfolio={profile.portfolio} />
       </Fragment>) : (
           <Fragment>
             <p>You don't have a profile, please add some information to your profile</p>
