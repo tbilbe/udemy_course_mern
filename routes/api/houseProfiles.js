@@ -17,7 +17,7 @@ const PropertyYield = require('../../models/PropertyYield');
 router.get('/search/trendingsearches', async (req, res) => {
   // trending one day
   let ONE_DAY = 24 * 60 * 60 * 1000; // ms
-  const oneDayOldSearch = new Date(Date.now() - ONE_DAY); //  
+  const oneDayOldSearch = new Date(Date.now() - ONE_DAY);
   
   const searches = await Search.find({});
  
@@ -96,6 +96,7 @@ router.post('/search/customsearch', [
     await Promise.all(moreThanABakersDozen.map(async (el) => {
       try {
         const yield = new PropertyYield({
+          user: req.user.user.id,
           returnOnInvestment: el.returnOnInvestmentStats.returnOnInvestment,
           totalGrossInvestment: el.returnOnInvestmentStats.totalInitialInvestmentAfterFees,
           mortgagePaymentsPerMonth: el.returnOnInvestmentStats.mortgageRepaymentsPerMonth,
@@ -117,10 +118,8 @@ router.post('/search/customsearch', [
         })
         await yield.save();
         await house.save();
-        console.log(`got here with ${el.price} in the bakers doz`)
-
+        console.log(`got here with ${el.price} in the bakers doz`);
       } catch (err) {
-        console.log('inside the promise all for the bakers doz');
         console.log(err)
       }
     }));
@@ -128,6 +127,7 @@ router.post('/search/customsearch', [
     await Promise.all(massiveReturns.map(async (el) => {
       try {
         const yield = new PropertyYield({
+          user: req.user.user.id,
           returnOnInvestment: el.returnOnInvestmentStats.returnOnInvestment,
           totalGrossInvestment: el.returnOnInvestmentStats.totalInitialInvestmentAfterFees,
           mortgagePaymentsPerMonth: el.returnOnInvestmentStats.mortgageRepaymentsPerMonth,
@@ -186,23 +186,6 @@ router.post('/search/customsearch', [
     console.error(err.message);
     res.status(500).send('server error!');
   }
-})
-
-
-/*
-  @route   GET api/houses/
-  @desc    get all houses 
-  @access  Private
-*/
-
-router.get('/', () => {
-  const allHouses = await House.find({});
-
-  if(allHouses) {
-    res.json(allHouses)
-  } else {
-			return res.status(400).send({ msg: 'Houses not found' });
-  }
 });
 
 /*
@@ -211,15 +194,30 @@ router.get('/', () => {
   @access  Private
 */
 
-router.get('/', () => {
-  const allHouses = await House.find({});
-
+router.get('/', async (req, res) => {
+  const allHouses = await House.find({}).populate('search'); // maybe use .populate on here ?
   if(allHouses) {
-    res.json(allHouses)
+    res.json(allHouses);
   } else {
 			return res.status(400).send({ msg: 'Houses not found' });
   }
 });
+
+// /*
+//   @route   GET api/houses/
+//   @desc    get all houses 
+//   @access  Private
+// */
+
+// router.get('/', async (req, res) => {
+//   const allHouses = await House.find({});
+
+//   if(allHouses) {
+//     res.json(allHouses)
+//   } else {
+// 			return res.status(400).send({ msg: 'Houses not found' });
+//   }
+// });
 
 
 

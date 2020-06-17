@@ -21,7 +21,7 @@ const ProfileSchema = new mongoose.Schema({
 		required: true
 	},
 	skills: {
-		// expirence of specific contract types - b2l, below market val, lease option aggre, ect
+		// experience of specific contract types - b2l, below market val, lease option aggre, ect
 		type: [String]
 	},
 	bio: {

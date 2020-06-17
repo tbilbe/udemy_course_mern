@@ -4,7 +4,7 @@ import {
 
 const initialState = {
   profile: null, 
-  houses: [],
+  houses: null,
   loading: true,
   error: {}
 }
@@ -20,5 +20,13 @@ export default function(state=initialState, action) {
         houses: payload,
         loading: false
       }
+    case GET_HOUSES_ERROR:
+      return {
+        ...state,
+        houses: null,
+        loading: false,
+      }
+    default:
+      return initialState
   }
 }

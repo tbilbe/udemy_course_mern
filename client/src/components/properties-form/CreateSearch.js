@@ -5,24 +5,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { searchForPropertyDeals } from '../../actions/search';
 
 
-const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
+const CreateSearch = ({ searchForPropertyDeals, history, houses: { scrapeRes} }) => {
+
+  console.log('what is scrape res', scrapeRes);
 
   const [formData, setFormData] = useState({
     searchTerm: '',
     maxprice: '',
   });
-
-
-  // use state for the api call
-  const [houseDeals, setHouses] = useState([]);
-
-  // useEffect(() => {
-  //   // fetch stuff
-  //   // searchForPropertyDeals();
-  //   searchForPropertyDeals();
-  //   // set the state
-  //   setHouses(houses)
-  // }, [searchForPropertyDeals]);
 
   const { 
     searchTerm,
@@ -35,6 +25,7 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
   };
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+  
 
   return (
     <Fragment>
@@ -78,15 +69,9 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
       <br/>
       <hr/>
       <br/>
-      {(houseDeals && houseDeals.length > 0) && houseDeals.map((deal, i) => (
-        <p key={i}>{deal}</p>
+      {scrapeRes && scrapeRes.map((deal) => (
+        <p key={deal.houseLink}>{deal}</p>
       ))}
-      
-      {/* conditional render of if we have houses! */}
-      {/* {
-        houses &&
-        <FoundHouseCard children={houses}/>
-      } */}
 
     </Fragment>
   )
@@ -94,7 +79,7 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
 
 CreateSearch.propTypes = {
   searchForPropertyDeals: PropTypes.func.isRequired,
-
+  houses: PropTypes.object.isRequired,
 }
 const mapStateToProps = state => ({
   houses: state.search.properties,

@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const PropertyYieldSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'user'
+  },
   returnOnInvestment: {
     type: String,
     required: true
