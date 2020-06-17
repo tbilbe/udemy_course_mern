@@ -2,7 +2,10 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../layout/spinner';
-import { getCurrentProfile } from '../../actions/profile';
+import {
+  getCurrentProfile,
+  deleteAccountAndProfile
+} from '../../actions/profile';
 import { getTrendingSearchHistory } from '../../actions/trendingSearches';
 import { Link, Redirect } from 'react-router-dom';
 import PortfolioHouses from './PortfolioHouses';
@@ -43,8 +46,12 @@ const dummyTrends = [
 
 // todo add trendingSearches obj to the props trendingSearches: { trending}
 const Dashboard = ({
-  getCurrentProfile, getTrendingSearchHistory,
-  auth: { user }, profile: { profile, loading }  }) => {
+  getCurrentProfile,
+  getTrendingSearchHistory,
+  deleteAccountAndProfile,
+  auth: { user },
+  profile: { profile, loading }
+}) => {
 
   useEffect(() => {
     getCurrentProfile();
@@ -60,12 +67,17 @@ const Dashboard = ({
 
       {profile !== null ? (<Fragment>
         <DashboardActions />
-{/* 
+        {/* 
         {trending && (
           <Trending trendingSearches={trending} />
         )} */}
 
         <PortfolioHouses portfolio={profile.portfolio} />
+        <div className="my-2">
+          <button className="btn btn-danger" onClick={() => deleteAccountAndProfile()}>
+            <i className="fas fa-user-minus"></i>Delete my Account
+          </button>
+        </div>
       </Fragment>) : (
           <Fragment>
             <p>You don't have a profile, please add some information to your profile</p>
@@ -82,11 +94,13 @@ Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  getTrendingSearchHistory: PropTypes.func.isRequired
+  getTrendingSearchHistory: PropTypes.func.isRequired,
+  deleteAccountAndProfile: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+
 })
 
-export default connect(mapStateToProps, { getCurrentProfile, getTrendingSearchHistory })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, getTrendingSearchHistory, deleteAccountAndProfile })(Dashboard);

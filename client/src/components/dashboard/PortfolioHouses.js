@@ -18,7 +18,7 @@ const PortfolioHouses = ({ portfolio, deletePropertiesFromPortfolio }) => {
         <Moment format='YYYY/MM/DD'>{moment.utc(el.dateOwned)}</Moment>
       </td>
       <td>
-        <button onClick={() => deletePropertiesFromPortfolio(el.id)} className="btn-sml btn-danger mobile-btn">Delete</button>
+        <button onClick={() => deletePropertiesFromPortfolio(el._id)} className="btn-sml btn-danger mobile-btn">Delete</button>
       </td>
     </tr>
   ))

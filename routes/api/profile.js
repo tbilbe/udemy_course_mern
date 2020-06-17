@@ -139,7 +139,6 @@ router.get('/user/:user_id', async (req, res) => {
 		console.error(err.message);
 		if (err.kind == 'ObjectId')
 			return res.status(400).send({ msg: 'Profile not found' });
-		res.status(500).send('Server Error');
 	}
 });
 
@@ -151,7 +150,9 @@ router.get('/user/:user_id', async (req, res) => {
 
 router.delete('/', auth, async (req, res) => {
 	try {
-		// todo remove posts
+		// this has to be done in order
+		// todo remove portfolio, posts, saved stuff ect import the model.deleteMany()
+		// this is deleteMany({user: req.user.id})
 
 		//Remove profile
 		await Profile.findOneAndRemove({ user: req.user.user.id });

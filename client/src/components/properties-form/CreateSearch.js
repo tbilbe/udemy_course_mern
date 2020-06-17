@@ -16,13 +16,13 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
   // use state for the api call
   const [houseDeals, setHouses] = useState([]);
 
-  useEffect(() => {
-    // fetch stuff
-    // searchForPropertyDeals();
-    searchForPropertyDeals();
-    // set the state
-    setHouses({...houses})
-  }, [houseDeals]);
+  // useEffect(() => {
+  //   // fetch stuff
+  //   // searchForPropertyDeals();
+  //   searchForPropertyDeals();
+  //   // set the state
+  //   setHouses(houses)
+  // }, [searchForPropertyDeals]);
 
   const { 
     searchTerm,
@@ -35,10 +35,6 @@ const CreateSearch = ({ searchForPropertyDeals, history, houses }) => {
   };
 
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  if(houses && houses.length > 0) {
-    console.log('hello', houses);
-  }
 
   return (
     <Fragment>

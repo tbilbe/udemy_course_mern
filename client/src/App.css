@@ -144,12 +144,12 @@ img {
 .btn {
 	display: inline-block;
 	text-decoration: none;
-	letter-spacing: 0.3rem;
+	/* letter-spacing: 0.3rem; */
 	background: var(--light-color);
 	color: #333;
-	padding: 0.7rem 1.5rem;
-	margin: 1rem;
-	border-radius: 0.8rem;
+	padding: 0.7rem 1.3rem;
+	margin: 0.5rem;
+	border-radius: 0.5rem;
 	font-size: 1.5rem;
 	border: none;
 	cursor: pointer;
@@ -164,7 +164,7 @@ img {
 	letter-spacing: 0.1rem;
 	background: var(--light-color);
 	color: #333;
-	border-radius: 0.8rem;
+	border-radius: 0.5rem;
 	padding: 0.8rem 1.5rem;
 	margin: 0.8rem;
 	font-size: 1rem;
@@ -179,7 +179,7 @@ img {
   display: inline-block;
   background: var(--light-color);
 	color: #333;
-	border-radius: 0.8rem;
+	border-radius: 0.5rem;
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
   border: none;

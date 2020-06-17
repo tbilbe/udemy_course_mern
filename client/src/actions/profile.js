@@ -92,27 +92,21 @@ export const addPropertiesToPortfolio = (formData, history) => async dispatch =>
 
 // delete the portfolio
 export const deletePropertiesFromPortfolio = (id) => async dispatch => {
-  
-  dispatch({
-    type: UPDATE_PROFILE,
-    payload: id
-  })
-  dispatch(setAlert(`hello! ${id}`,'success'));
-  
-  // try {
-  //   const res = await axios.delete(`/api/profile/portfolio/${id}`);
 
-  //   dispatch({
-  //     type: UPDATE_PROFILE,
-  //     payload: res.data
-  //   })
-  //   dispatch(setAlert('Portfolio property removed', 'success', 8000));
-  // } catch (err) {
-  //   dispatch({
-  //     type: PROFILE_ERROR,
-  //     payload: { msg: err.response.statusText, status: err.response.status}
-  //   })
-  // }
+  try {
+    const res = await axios.delete(`/api/profile/portfolio/${id}`);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    })
+    dispatch(setAlert('Portfolio property removed', 'success', 8000));
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status}
+    })
+  }
 }
 
 // delete the favorite house from Portfolio
@@ -175,7 +169,7 @@ export const deleteAccountAndProfile = () => async dispatch => {
   
       dispatch({type: CLEAR_PROFILE})
       dispatch({type: ACCOUNT_DELETED})
-      dispatch(setAlert('Your account has been permenantly deleted', 'danger', 8000));
+      dispatch(setAlert('Your account has been permanently deleted', 'danger', 8000));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,

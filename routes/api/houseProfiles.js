@@ -46,7 +46,7 @@ router.get('/search/trendingsearches', async (req, res) => {
 // this route should implement the scraper
 /*
   @route   POST api/houses/search/customsearch
-  @desc    Test route
+  @desc    Start scraper to pull data
   @access  Private
 */
 
@@ -187,6 +187,41 @@ router.post('/search/customsearch', [
     res.status(500).send('server error!');
   }
 })
+
+
+/*
+  @route   GET api/houses/
+  @desc    get all houses 
+  @access  Private
+*/
+
+router.get('/', () => {
+  const allHouses = await House.find({});
+
+  if(allHouses) {
+    res.json(allHouses)
+  } else {
+			return res.status(400).send({ msg: 'Houses not found' });
+  }
+});
+
+/*
+  @route   GET api/houses/
+  @desc    get all houses 
+  @access  Private
+*/
+
+router.get('/', () => {
+  const allHouses = await House.find({});
+
+  if(allHouses) {
+    res.json(allHouses)
+  } else {
+			return res.status(400).send({ msg: 'Houses not found' });
+  }
+});
+
+
 
 
 
